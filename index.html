@@ -1,0 +1,1065 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/feather-icons@4.29.0/dist/feather.min.js"></script>
+    <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,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">
+    <style type="text/css">
+      #app {}
+      .code {font-family: monospace, courier; font-size: 12px;}
+      .form-control {
+        font-size: 14px;
+      }
+      .feather {
+        width: 16px;
+        height: 16px;
+        vertical-align: text-bottom;
+      }
+      #tx_result {
+        background: #1f1f24;
+        color: #fff;
+      }
+      #presets {
+        width: 300px;
+      }
+      #btn_execute {width: 300px;}
+      .table td, .table th {
+          vertical-align: bottom;
+      }
+      #private_key {font-size: 13px;}
+      .modal-mask {
+        position: fixed;
+        z-index: 9998;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        display: table;
+        transition: opacity .3s ease;
+      }
+
+      .modal-wrapper {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .text-glow {
+        color: #94510e;
+        text-shadow: 0 1px 0 #a03a3a, 0 2px 0 #050000,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+        padding: 10px 0 5px 0;
+      }
+      .modal-container {
+        width: 500px;
+        margin: 0px auto;
+        padding: 10px 15px;
+        background-color: #fff;
+        border-radius: 2px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+        transition: all .3s ease;
+        font-family: Helvetica, Arial, sans-serif;
+      }
+
+      .modal-header h3 {
+        margin-top: 0;
+        color: #42b983;
+      }
+
+      .modal-body {
+        margin: 10px 0;
+        max-height: 300px;
+        overflow: auto;
+      }
+
+      .modal-default-button {
+        float: right;
+      }
+
+      /*
+       * The following styles are auto-applied to elements with
+       * transition="modal" when their visibility is toggled
+       * by Vue.js.
+       *
+       * You can easily play with the modal transition by editing
+       * these styles.
+       */
+
+      .modal-enter {
+        opacity: 0;
+      }
+
+      .modal-leave-active {
+        opacity: 0;
+      }
+
+      .modal-enter .modal-container,
+      .modal-leave-active .modal-container {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
+      select.opt-view {
+        color: #1e7e34 !important;
+      }
+      select.opt-write {
+        color: #b11b29 !important;
+      }
+      .token_info_box h5, .token_info_box p {
+        font-size: .8rem !important;
+      }
+      .form-control {
+        padding: 0.275rem 0.45rem !important;
+      }
+      #contract_method {
+        border-radius: 0 !important;
+      }
+      #method-param-wrapper {
+        border-radius:  0 !important;
+        border: solid 1px #ccc;
+        border-top: 0px;
+        background-color: #f5f7f8 !important;
+      }
+      #raw_data {
+        color:  #cf8003!important
+      }
+      #dropdownMenuButton {
+        white-space: inherit;
+      }
+      #dropdownMethods {
+        max-width: 350px;
+        max-height: 500px;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      #dropdownMethods .dropdown-item {
+        white-space: inherit !important;
+        padding: 0.15rem 0.5rem !important;
+        border-bottom: solid 1px #dee2e6;
+        font-size: 13px;
+        font-weight: inherit;
+      }
+      .dropdown-item:focus, .dropdown-item:hover {
+        background-color: #d1ecf1;
+        cursor: pointer;
+        /*font-weight: bold !important;*/
+      }
+      #dropdownMethods .method-read .method-name {
+        color: #1e7e34;
+      }
+      #dropdownMethods .method-write .method-name {
+        color: #b11b29;
+      }
+      #dropdownMethods .method-param .p_name {
+        color: purple;
+      }
+      #dropdownMethods .method-param .p_value {
+        
+      }
+    </style>
+    <title>Smart Contract Communicator</title>
+  </head>
+  <body class="bg-light">
+    <div class="container-fluid" id="app">
+      <h1 class="text-glow">Smart Contract Communicator v1.5.9</h1>
+      <hr>
+    <form class="form-inline">
+      <div>
+        <div class="form-group">
+          <select class="form-control" id="presets" v-model="current_preset">
+            <option value="">Select preset</option>
+            <template v-for="preset in current_presets">
+              <option v-if="preset.name" :value="preset.name">{{ preset.name }}</option>
+            </template>
+          </select>
+          <button class="btn btn-success ml-2" @click="load_preset()" type="button">Load preset</button>
+          <button class="btn btn-outline-success ml-2" type="button" @click="showModal = true; show_list_preset = true; show_import_preset = false;"><i data-feather="edit"></i> Manage presets</button>
+        </div>
+      </div>
+    </form>
+    <hr>
+    <form class="row">
+      <!-- Col1 -->
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="rpc">RPC <small class="text-muted">(Chain ID: {{chain_id}}) <a href="https://chainlist.org/" target="_blank">chainlist.org</a></small></label>
+          <input type="text" class="form-control" id="rpc" v-model="rpc" aria-describedby="rpc" placeholder="RPC URI">
+          <small id="rpc" class="form-text text-muted">Ex:
+            <a href="javascript:void(0)" @click="setRPC('https://bsc-dataseed.binance.org/')"><span class="badge badge-secondary">https://bsc-dataseed.binance.org/</span></a>
+            <a href="javascript:void(0)" @click="setRPC('https://data-seed-prebsc-1-s1.binance.org:8545')"><span class="badge badge-secondary">https://data-seed-prebsc-1-s1.binance.org:8545</span></a>
+            <a href="javascript:void(0)" @click="setRPC('https://rpc.ankr.com/eth')"><span class="badge badge-secondary">https://rpc.ankr.com/eth</span></a>
+            <a href="javascript:void(0)" @click="setRPC('https://rpc.shibchain.app/')"><span class="badge badge-secondary">https://rpc.shibchain.app/</span></a>
+            <a href="javascript:void(0)" @click="setRPC('https://polygon-rpc.com')"><span class="badge badge-secondary">https://polygon-rpc.com</span></a>
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="contract_address">Smart Contract address <a title="View on BSCscan.com" target="_blank" :href="scan_uri.replace('/tx/', '/address/')+contract_address+''" v-show="contract_address != ''"><i data-feather="external-link"></i></a></label>
+          <span class="text-danger" v-show="!is_contract_address">Not a contract address</span>
+          <input type="text" class="form-control" id="contract_address" v-model="contract_address" placeholder="0x0000000000000000000000000000">
+        </div>
+        <!-- Token info -->
+        <div class="form-group token_info_box" v-show="is_token_contract && is_contract_address">
+          <div class="alert alert-info m-0 p-2 text-small" role="alert">
+            <h5 class="alert-heading">Token info</h5>
+            <hr class="m-0">
+            <p class="mb-0">Name: {{token_name}} ・ Symbol: {{token_symbol}} ・ Decimals: {{token_decimal}}<br>Total supply: {{token_total_supply}} ・ My balance: {{my_token_balane}}</p>
+          </div>
+        </div>
+        <!--/ Token info -->
+        <div class="form-group">
+          <label for="contract_abi">Contract ABI <small v-show="contract_address != ''">(<a title="View contract ABIs on BSCscan.com" target="_blank" href="javascript:void(0)" @click.prevent="download_abis()">Load contract's ABIs <i data-feather="download-cloud"></i></a>)</small></label>
+          <textarea class="form-control code text-success" id="contract_abi" v-model="contract_abi" rows="5"></textarea>
+          <small v-show="abi_error != ''" class="text-danger">{{ abi_error }}</small>
+        </div>
+        <div class="form-group">
+          <label for="private_key">Private key</label>
+          <div class="input-group">
+            <input :type="pkey_field_type" class="form-control" id="private_key" v-model="private_key" placeholder="0x0000000000000000000000000000000000000000000000000000">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" @click="switchVisibility()"><i data-feather="eye"></i></button>
+            </div>
+          </div>
+          <small id="sender_address" class="form-text text-muted">Address: {{ sender_address }} <a title="View on Explorer" :href="addressUrl" target="_blank"><i data-feather="external-link"></i></a> {{ my_balance }}</small>
+        </div>
+        <div class="form-group">
+          <label for="note">Note</label>
+          <textarea class="form-control code" id="note" v-model="note" rows="8" placeholder="Note anything you want"></textarea>
+        </div>
+        <!-- <hr> -->
+        
+        <!-- <div class="form-group">
+          <label for="token_decimal">Token decimal <small>(in case you want to check token balance)</small></label>
+          <input type="text" class="form-control" id="token_decimal" v-model="token_decimal" placeholder="">
+        </div> -->
+      </div>
+      <!--/ Col1 -->
+      <!-- Col2 -->
+      <div class="col-sm-3">
+        <div class="form-group">
+          <!-- <div class="dropdown">
+            <button :class="[ contract_method_action == 'call' ? 'btn btn-secondary dropdown-toggle opt-view' : 'btn btn-secondary dropdown-toggle opt-write']" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{contract_method}} <span style="color: purple;">{{contract_method ? " (" + Object.keys(selected_method_params).join(', ') + ")" : 'Select method'}}</span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownMethods">
+              <div class="dropdown-item"><input type="text" class="form-control" name=""></div>
+              <a :class="['dropdown-item', readable_types.indexOf(method.type) > -1 ? 'method-read' : 'method-write']" @click="contract_method = method.name" v-for="method in function_list" v-bind:value="method.name" :data-method-type="method.type">
+                <span class="method-name">{{ method.name }}</span>(<span class="method-param" v-html="renderParams(method.params)"></span>)
+              </a>
+            </div>
+          </div> -->
+
+          <label for="contract_method">Select method</label>
+          <select :class="[ contract_method_action == 'call' ? 'form-control opt-view' : 'form-control opt-write']" id="contract_method" v-model="contract_method">
+            <option v-for="method in function_list" v-bind:value="method.name" :data-method-type="method.type">{{ method.name }}({{ method.params.join(', ')}}) {{ (readable_types.indexOf(method.type) > -1 ? 'READ' : 'WRITE') }}</option>
+          </select>
+          <div id="method-param-wrapper" class="jumbotron p-3" v-show="Object.keys(selected_method_params).length >  0">
+            <div v-for="(value, p_name, index) in selected_method_params">
+              <label>{{ selected_method_type.params[index] }}</label>
+              <input type="text" class="form-control" v-model="selected_method_params[p_name]">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="gas">Gas</label>
+          <input type="text" class="form-control" id="gas" v-model="gas" aria-describedby="gas" value="600000" :disabled="contract_method_action=='call'">
+        </div>
+        <div class="form-group" v-show="!0">
+          <label for="send_value">Send with value</label>
+          <input type="text" class="form-control" id="send_value" v-model="send_value" aria-describedby="send_value" value="0" placeholder="0" :disabled="contract_method_action=='call'">
+          <small class="form-text text-muted">If this value greater than 0, Transaction will send with this amount of network token (BNB, ETH).</small>
+        </div>
+        <div class="form-group">
+          <label for="raw_data">Send with raw data</label>
+          <textarea class="form-control code" id="raw_data" v-model="raw_data" rows="5" placeholder="0x123456788..."></textarea>
+        </div>
+      </div>
+      <!--/ Col2 -->
+      <div class="col-sm-5">
+        
+        <div class="btn-group">
+          <button type="button" id="btn_execute" class="btn btn-lg" :class="[ contract_method_action != 'send' ? 'btn-primary' : 'btn-warning', raw_data != '' ? 'btn-danger' : '']" @click="execute()" :disabled='is_executing'>Execute <span v-html="execute_value"></span></button>
+          <button type="button" class="btn dropdown-toggle dropdown-toggle-split" :class="[ contract_method_action != 'send' ? 'btn-primary' : 'btn btn-warning', raw_data != '' ? 'btn-danger' : '']" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="javascript:void(0)" @click="execute(true)">Estimate Gas</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="javascript:void(0)" @click="executeWhenPosible()">Run whenever posible</a>
+            <a class="dropdown-item" href="javascript:void(0)" @click="executeAtTime()">Run at selected time</a>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-info" @click="savePreset()">Save as Preset</button>
+        <!-- <div v-show="!tx_result" class="alert alert-dark mt-1 d-flex" role="alert" style="
+            height: 400px; background-color: #ebeced;
+        "></div> -->
+
+        <div class="form-group">
+          <hr>
+          <label for="tx_result">
+            <span class="text-success" v-show="tx_result_success == true">
+              <i data-feather="check-circle"></i>
+            </span>
+            <span class="text-danger" v-show="tx_result_success == false">
+              <i data-feather="alert-circle"></i>
+            </span>
+            Result <a :href="bscscan_tx" v-show="bscscan_tx != ''" target="_blank" class="small"><i data-feather="external-link"></i> View on explorer</a></label>
+          <textarea class="form-control" id="tx_result" v-model="tx_result" rows="12"></textarea>
+          <label for="tx_result_structure">Result structure</label>
+          <textarea class="form-control text-success code" id="tx_result_structure" rows="6" v-model="method_outputs"></textarea>
+        </div>
+      </div>
+    </form>
+
+    <!-- Modal -->
+    <!-- template for the modal component -->
+    <script type="text/x-template" id="modal-template">
+      <transition name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-container">
+
+              <div class="modal-header">
+                <slot name="header">
+                  default header
+                </slot>
+              </div>
+
+              <div class="modal-body">
+                <slot name="body">
+                  default body
+                </slot>
+              </div>
+
+              <div class="modal-footer">
+                <slot name="footer">
+                  <button class="btn btn-sm btn-info" @click="$emit('close')">
+                    Close
+                  </button>
+                </slot>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </script>
+    <modal v-if="showModal" @close="showModal = false">
+      <!--
+        you can use custom content here to overwrite
+        default content
+      -->
+      <div slot="body">
+        <!-- Import presets -->
+        <div v-show="show_import_preset">
+          <div class="form-group">
+            <label for="json_presets">Input preset JSON string:</label>
+            <textarea class="form-control" id="json_presets" rows="8" v-model="json_presets"></textarea>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-info" @click="processImportPresets()">Import</button>
+          </div>
+        </div>
+        <!--/ Import presets -->
+        <table class="table table-borderless table-striped" v-show="show_list_preset">
+          <tbody>
+            <template v-for="(preset, idx) in current_presets">
+              <tr v-if="preset.name">
+                <td>
+                  <span v-show="preset_editing != idx">{{preset.name}}</span>
+                  <div class="input-group" v-show="preset_editing == idx">
+                    <div class="input-group-prepend">
+                      <input type="form-control input-sm" v-model="inline_preset_value">
+                      <button class="btn btn-primary btn-sm" type="button" @click="update_preset(idx)">Save</button>
+                      <button class="btn btn-outline-danger btn-sm" type="button" @click="preset_editing = null">X</button>
+                    </div>
+                  </div>
+                </td>
+                <td align="right">
+                  <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                    <button class="btn btn-sm btn-outline-danger" @click=remove_preset(idx)>Remove</button>
+                    <button class="btn btn-sm btn-outline-info" @click="edit_preset_name(idx)">Edit</button>
+                  </div>
+                </td>
+              </tr>
+            </template>
+            
+          </tbody>
+        </table>
+      </div>
+      <h3 slot="header">Manage presets
+        <div>
+          <button class="btn btn-sm btn-outline-info" @click="exportAllPresets()">Export all presets</button>
+          <button class="btn btn-sm btn-outline-primary" @click="importAllPresets()">Import presets</button>
+        </div>
+      </h3>
+    </modal>
+    <!--/ Modal -->
+    </div>
+    <footer class="pt-5 text-muted text-center text-small">
+      <p class="mb-1">© 2021 <a href="https://t.me/addr0x0" target="_blank">addr0x0</a></p>
+    </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      const _DEFAULT_GAS = 400000;
+      const key_name = 'addr0x0_presets';
+      const preset_key_name = 'addr0x0_current_preset';
+      function toObject (_obj) {
+          return JSON.parse(JSON.stringify(_obj, (key, value) =>
+            typeof value === 'bigint'
+              ? value.toString()
+              : value // return everything else unchanged
+          ));
+        }
+      Vue.component('modal', {
+        template: '#modal-template'
+      });
+      var app = new Vue({
+        el: '#app',
+        data: {
+          rpc: '',
+          chain_id: 'N/A',
+          web3: null,
+          readable_types: ['view', 'pure'],
+          private_key: '',
+          contract_address: '',
+          contract_abi: '',
+          contract_abi_obj: [],
+          contract_method: '',
+          contract_method_action: 'call',
+          gas: _DEFAULT_GAS,
+          send_value: '0',
+          sender_address: 'N/A',
+          abi_error: '',
+          note: '',
+          token_decimal: '18',
+          tx_result: null,
+          function_list: [],
+          method_params: {},
+          selected_method_params: [],
+          selected_method_type: {},
+          current_presets: [],
+          current_preset: '',
+          is_executing: false,
+          method_outputs: '',
+          showModal: false,
+          pkey_field_type: 'text',
+          preset_editing: null,
+          inline_preset_value: null,
+          bscscan_tx: '',
+          is_testnet: false,
+          tx_result_success: null,
+          my_balance: null,
+          is_contract_address: true,
+          scan_uri: 'https://bscscan.com/tx/',
+          address_explorer: 'https://bscscan.com/address/',
+          is_token_contract: false,
+          my_token_balane: 0,
+          token_name: '',
+          token_symbol: '',
+          raw_data: '',
+          token_total_supply: 0,
+          show_list_preset: true,
+          show_import_preset: false,
+          json_presets: '',
+        },
+        mounted: function() {
+          this.web3 = new Web3(this.rpc);
+          console.log(this.web3);
+          // console.log(this.web3.utils.keccak256('_contribute(1)').substr(0, 10));
+          this.display_presets();
+        },
+        computed: {
+          addressUrl: function() {
+            return this.address_explorer + this.sender_address;
+          },
+          execute_value: function() {
+            if (this.contract_method_action == 'call') this.send_value = 0;
+            return this.send_value > 0 ? `<small class="text-muted">(value: ${parseFloat(this.send_value/10**18).toFixed(4)})</small>` : '';
+          }
+        },
+        watch: {
+          rpc: function (_new, _old) {
+            this.web3 = new Web3(_new);
+            if (_new.indexOf('prebsc') > -1) {
+              this.scan_uri = 'https://testnet.bscscan.com/tx/';
+              this.address_explorer = 'https://testnet.bscscan.com/address/';
+              this.is_testnet = true;
+            }
+            else {
+              this.scan_uri = 'https://bscscan.com/tx/';
+              this.address_explorer = 'https://bscscan.com/address/';
+              this.is_testnet = false;
+            }
+            (async () => {
+              if(this.sender_address != '' && this.sender_address != 'N/A') {
+                try {
+                  this.my_balance = `(Balance: ${parseFloat(await this.web3.eth.getBalance(this.sender_address)/10**18).toFixed(4)})`;
+                }
+                catch (e) {console.log(e)}
+              }
+              // get chain id
+              try {
+                this.chain_id = await this.web3.eth.getChainId();
+              } catch (e) {}
+            })();
+          },
+          sender_address: function(_new, _old) {
+            (async () => {
+              this.my_balance = '';
+              if(this.sender_address != '' && this.sender_address != 'N/A') {
+                try {
+                  this.my_balance = `(Balance: ${parseFloat(await this.web3.eth.getBalance(this.sender_address)/10**18).toFixed(4)})`;
+                }
+                catch (e) {console.log(e)}
+              }
+            })();
+          },
+          is_token_contract: function () {
+            (async () => {
+              this.get_token_info();
+            })();
+          },
+          private_key: function (new_pkey, old_pkey) {
+            let senderAddress = '';
+            try {
+              senderAddress = this.web3.eth.accounts.privateKeyToAccount(new_pkey).address;
+            } catch (e) { console.log(e); senderAddress = ''; };
+            (async () => {
+              this.my_balance = '';
+              if(this.sender_address != '' && this.sender_address != 'N/A') {
+                try {
+                  this.my_balance = `(Balance: ${parseFloat(await this.web3.eth.getBalance(this.sender_address)/10**18).toFixed(4)})`;
+                }
+                catch (e) {console.log(e)}
+              }
+            })();
+            this.sender_address = senderAddress;
+          },
+          contract_abi: function (new_abi, old_abi) {
+            let read_funcs = [];
+            let write_funcs = [];
+            let tmp_func_names = [];
+            try {
+              this.contract_abi_obj = JSON.parse(new_abi);
+              this.abi_error = '';
+              // Set function list select box
+              if (new_abi != old_abi) this.function_list = [];
+              this.is_token_contract = false;
+              this.contract_abi_obj.map(e => {
+                if (e.type=='function') {
+                  let f_params = [];
+                  let f_outputs = [];
+                  if (tmp_func_names.indexOf(e.name) > -1) e.name = e.name + '#';
+                  this.method_params[e.name] = {};
+                  e.inputs.forEach(input => {
+                    f_params.push(input.type+' '+input.name);
+                    this.method_params[e.name][input.name] = null;
+                  });
+                  if (typeof e.stateMutability != 'undefined' && e.stateMutability == 'view') {
+                    read_funcs.push({"name": e.name, "type": 'view', "params": f_params, "outputs": e.outputs});
+                  }
+                  else {
+                    write_funcs.push({"name": e.name, "type": e.stateMutability??'view', "params": f_params, "outputs": e.outputs});
+                  }
+                  tmp_func_names.push(e.name);
+                  // Check if ABI contains decimals() method
+                  if (e.name == 'decimals' || e.name == 'name' || e.name == 'symbol' || e.name == 'totalSupply') {
+                    this.is_token_contract = true;
+                  }
+                }
+              });
+              this.function_list = read_funcs.concat(write_funcs);
+
+            }
+            catch (e) {
+              this.abi_error = e;
+              this.contract_abi_obj = [];
+            }
+          },
+          current_preset: function (new_preset_name, old_preset_name) {
+            localStorage.setItem(preset_key_name, new_preset_name);
+          },
+          contract_address: function (_new, _old) {
+            (async () => {
+              try {
+                let addrCode = await this.web3.eth.getCode(_new);
+                if (addrCode == '0x') {
+                  this.is_contract_address = false;
+                }
+                else {
+                  this.is_contract_address = true;
+                  this.get_token_info();
+                }
+              }
+              catch (e) {console.log(e); this.is_contract_address = false;}
+            })();
+          },
+          contract_method: {
+            handler: function (new_method, old_method) {
+              this.gas = _DEFAULT_GAS;
+              // Generate parameter list
+              console.log('new_method', new_method);
+              console.log('old_method', old_method);
+              if (typeof this.method_params[new_method] == 'undefined') return;
+              this.selected_method_params = this.method_params[new_method];
+              // Set function behavior (call/send)
+              this.selected_method_type = this.function_list.filter(f => f.name == new_method)[0];
+              console.log('selected_method_type', this.selected_method_type);
+              // console.log(selected_method_type);
+              if (this.readable_types.indexOf(this.selected_method_type?.type) > -1) {
+                this.contract_method_action = 'call';
+              }
+              else {
+                this.contract_method_action = 'send';
+              }
+              if (this.selected_method_type?.outputs.length == 1) this.selected_method_type.outputs = this.selected_method_type.outputs[0];
+              this.method_outputs = JSON.stringify(toObject(this.selected_method_type.outputs), null, 2);
+            },
+          }
+        },
+        methods: {
+          setRPC: function(new_rpc) {
+            this.rpc = new_rpc;
+          },
+          display_presets: function() {
+            let current_presets = JSON.parse(localStorage.getItem(key_name));
+            let current_preset = localStorage.getItem(preset_key_name);
+            if (current_presets && current_presets.length > 0) this.current_presets = current_presets;
+            if (typeof current_preset != 'undefined' && current_preset != null) this.current_preset = current_preset; this.load_preset();
+          },
+          get_token_decimals: function (){
+            if (!this.contract_address || !this.is_token_contract) return;
+            (async () => {
+              try {
+                let _contract = new this.web3.eth.Contract(this.contract_abi_obj, this.contract_address);
+                let _decimals = await _contract.methods.decimals().call();
+                this.token_decimal = _decimals;
+              }
+              catch (e) { console.log (e); }
+            })();
+          },
+          get_token_balance: function (){
+            if (!this.contract_address || !this.is_token_contract || this.sender_address.length < 10) return;
+            (async () => {
+              try {
+                let _contract = new this.web3.eth.Contract(this.contract_abi_obj, this.contract_address);
+                let _balance = await _contract.methods.balanceOf(this.sender_address).call();
+                if (_balance > 0) this.my_token_balane = parseFloat(_balance / 10**this.token_decimal).toFixed(4);
+              }
+              catch (e) { console.log (e); }
+            })();
+          },
+          get_token_name: function (){
+            if (!this.contract_address || !this.is_token_contract || this.sender_address.length < 10) return;
+            (async () => {
+              try {
+                let _contract = new this.web3.eth.Contract(this.contract_abi_obj, this.contract_address);
+                let _name = await _contract.methods.name().call();
+                this.token_name = _name;
+              }
+              catch (e) { console.log (e); }
+            })();
+          },
+          get_token_symbol: function (){
+            if (!this.contract_address || !this.is_token_contract || this.sender_address.length < 10) return;
+            (async () => {
+              try {
+                let _contract = new this.web3.eth.Contract(this.contract_abi_obj, this.contract_address);
+                let _symbol = await _contract.methods.symbol().call();
+                this.token_symbol = _symbol;
+              }
+              catch (e) { console.log (e); }
+            })();
+          },
+          sleep: function (ms) {
+              return new Promise(resolve => setTimeout(resolve, ms));
+          },
+          get_token_total_supply: function (){
+            if (!this.contract_address || !this.is_token_contract || this.sender_address.length < 10) return;
+            (async () => {
+              try {
+                let _contract = new this.web3.eth.Contract(this.contract_abi_obj, this.contract_address);
+                let _total_supply = await _contract.methods.totalSupply().call();
+                this.token_total_supply = parseFloat(_total_supply / 10**this.token_decimal).toFixed(2);
+              }
+              catch (e) { console.log (e); }
+            })();
+          },
+          get_token_info: function ( ){
+            (async () => {
+              if (this.is_contract_address && this.contract_address.length > 10) {
+                await this.get_token_decimals();
+                await this.get_token_balance();
+                await this.get_token_name();
+                await this.get_token_symbol();
+                await this.get_token_total_supply();
+              }
+            })();
+          },
+          execute: function (estimateOnly = false) {
+            if (this.raw_data != '') this.contract_method_action = 'send';
+            let params = [];
+            this.tx_result = 'Sending transaction...';
+            this.is_executing = true, this.bscscan_tx = '', this.tx_result_success = null;
+            let tx_result = '';
+            (async () => {
+              try {
+                if (Object.keys(this.selected_method_params).length > 0) {
+                  _p = 0;
+                  for (let [p_name, p_value] of Object.entries(this.selected_method_params)) {
+                    if (p_value.indexOf('}') > -1) {
+                      p_value = JSON.parse(p_value);
+                    }
+                    else if (p_value.indexOf(',') > -1) {
+                      p_value = p_value.split(',')
+                    }
+                    console.log('p_value', p_value);
+                    if (p_value == 'true' || p_value == 'false') {
+                      p_value = p_value == 'true' ? true :  false;
+                    }
+                    params.push(p_value);
+                    _p++;
+                  }
+                }
+                console.log(this.selected_method_type)
+                // JSON object?
+                // if (this.selected_method_params.indexOf('{') > -1) {
+
+                // }
+                // Call
+                let _stripped_contract_method = this.contract_method.replaceAll('#', '');
+                if (this.contract_method_action == 'call') {
+                  let contract = new this.web3.eth.Contract(this.contract_abi_obj, this.contract_address);
+                  let result = await contract.methods[`${_stripped_contract_method}`](...params).call();
+
+                  if (_stripped_contract_method == 'balanceOf' && parseInt(this.token_decimal) > 0) {
+                    result = +result/10**parseInt(this.token_decimal);
+                  }
+                  tx_result = result;
+                }
+                // Send
+                else {
+                  let w3_encodedABI, w3_myMethod = '';
+                  if (this.raw_data == '') {
+                    console.log('params', params);
+                    const w3_contract = new this.web3.eth.Contract(this.contract_abi_obj, this.contract_address);
+                    w3_myMethod = w3_contract.methods[`${_stripped_contract_method}`](...params);
+                    w3_encodedABI = w3_myMethod.encodeABI();
+                    console.log('encodedABI: ' + w3_encodedABI);
+                  }
+                  else {
+                    w3_encodedABI = this.raw_data;
+                  }
+                    let tx = {
+                        from: this.sender_address,
+                        to: this.contract_address,
+                        gas: this.gas,
+                        gasPrice: this.web3.utils.toWei('5', 'gwei'),
+                        nonce: await this.web3.eth.getTransactionCount(this.sender_address),
+                        data: w3_encodedABI,
+                    };
+                    if (this.send_value > 0) {
+                      tx['value'] = this.send_value;
+                    }
+                  console.log(tx);
+                  if (estimateOnly) {
+                    if (this.raw_data != '') {
+                      this.tx_result = 'Could not estimate gas for raw data transaction.';
+                      this.is_executing = false;
+                    }
+                    else {
+                      let _gasEstimation = await w3_myMethod.estimateGas({from: this.sender_address, gas: this.gas, value: (this.send_value > 0 ? this.send_value : 0)});
+                      console.log(_gasEstimation);
+                      this.tx_result = 'Gas estimation: ' + _gasEstimation;
+                      this.gas = _gasEstimation;
+                      this.is_executing = false;
+                      // this.tx_result_success = false;
+                    }
+                    return false;
+                  }
+                  const signedTx = await this.web3.eth.accounts.signTransaction(tx, this.private_key);
+                  const receipt = await this.web3.eth.sendSignedTransaction(signedTx.raw || signedTx.rawTransaction);
+                  if (typeof receipt.transactionHash != 'undefined') {
+                    tx_result = "Transaction sent!\nTransaction hash: " + receipt.transactionHash;
+                    tx_result += "\n---------------------------------------------------\n";
+                    console.log(tx_result);
+                    tx_result += JSON.stringify(toObject(receipt), null, "\t");
+                    this.bscscan_tx = this.scan_uri + receipt.transactionHash;
+                    this.tx_result_success = true;
+                  }
+                  else {
+                    this.tx_result_success = false;
+                  }
+                }
+                this.is_executing = false;
+              }
+              catch (e) { 
+                this.tx_result_success = false;
+                tx_result = e;
+                console.error(e);
+                let _txHashMatched = e.toString().match(/.*"transactionHash": "(.*?)".*/);
+                if (_txHashMatched && typeof _txHashMatched[1] != 'undefined') {
+                  this.bscscan_tx = this.scan_uri + _txHashMatched[1];
+                }
+                tx_result = "Transaction failed: " + e.message;
+                if (typeof e.transactionHash != 'undefined') {
+                  this.bscscan_tx = this.scan_uri + e.transactionHash;
+                }
+              }
+              console.log(tx_result)
+              if (typeof tx_result == 'object') {
+                tx_result = JSON.stringify(toObject(tx_result), null, "\t");
+              }
+              if (typeof tx_result == 'boolean') tx_result = String(Boolean(tx_result));
+              this.tx_result = tx_result;
+              this.is_executing = false;
+            })();
+          },
+          executeWhenPosible: async function () {
+            let params = [];
+            console.log('executeWhenPosible', this.selected_method_params);
+            this.is_executing = true;
+            if (Object.keys(this.selected_method_params).length > 0) {
+              try {
+                for (let [p_name, p_value] of Object.entries(this.selected_method_params)) {
+                  if (p_value.indexOf(',') > -1) p_value = p_value.split(',');
+                  console.log('p_value', p_value);
+                  if (p_value == 'true' || p_value == 'false') {
+                    p_value = p_value == 'true' ? true :  false;
+                  }
+                  params.push(p_value);
+                }
+              }
+              catch (e) {
+                this.tx_result_success = false;
+                this.tx_result = e.message;
+                this.is_executing = false;
+                return;
+              }
+            }
+            let _stripped_contract_method = this.contract_method.replaceAll('#', '');
+            const w3_contract = new this.web3.eth.Contract(this.contract_abi_obj, this.contract_address);
+            if (this.contract_method_action == 'call') {
+              let contract = new this.web3.eth.Contract(this.contract_abi_obj, this.contract_address);
+              let result = await contract.methods[`${_stripped_contract_method}`](...params).call();
+
+              if (_stripped_contract_method == 'balanceOf' && parseInt(this.token_decimal) > 0) {
+                result = +result/10**parseInt(this.token_decimal);
+              }
+              this.tx_result = result;
+            }
+            else {
+              let w3_encodedABI, w3_myMethod = '';
+              w3_myMethod = w3_contract.methods[`${_stripped_contract_method}`](...params);
+              w3_encodedABI = w3_myMethod.encodeABI();
+              let tx = {
+                  from: this.sender_address,
+                  to: this.contract_address,
+                  gas: this.gas,
+                  nonce: await this.web3.eth.getTransactionCount(this.sender_address),
+                  data: w3_encodedABI,
+              };
+              if (this.send_value > 0) {
+                tx['value'] = this.send_value;
+              }
+              for (;;) {
+                try {
+                  _gasEstimation = await w3_myMethod.estimateGas({from: this.sender_address, gas: this.gas, value: (this.send_value > 0 ? this.send_value : 0)});
+                  this.tx_result = 'Gas estimation: ' + _gasEstimation + " Wei\nSending transaction....\n";
+                  ////////// SEND TX //////////
+                  const signedTx = await this.web3.eth.accounts.signTransaction(tx, this.private_key);
+                  const receipt = await this.web3.eth.sendSignedTransaction(signedTx.raw || signedTx.rawTransaction);
+                  if (typeof receipt.transactionHash != 'undefined') {
+                    tx_result = "Transaction sent!\nTransaction hash: " + receipt.transactionHash;
+                    tx_result += "\n---------------------------------------------------\n";
+                    tx_result += JSON.stringify(toObject(receipt), null, "\t");
+                    this.bscscan_tx = this.scan_uri + receipt.transactionHash;
+                    this.tx_result_success = true;
+                  }
+                  else {
+                    this.tx_result_success = false;
+                  }
+
+                  this.is_executing = false;
+                }
+                catch (e) { console.log(e); this.tx_result = new Date().toLocaleString() + ': ' + e.message; }
+                await this.sleep(100);
+              }
+            }
+            this.is_executing = false;
+          },
+          estimateGas: function () {
+            
+          },
+          download_abis: function () {
+            (async () => {
+              try {
+                let download_url = '';
+                if (!this.is_testnet) {
+                  if (this.rpc.indexOf('bsc') > - 1) {
+                    download_url = 'https://api.bscscan.com/api?module=contract&action=getabi&address=';
+                  }
+                  else {
+                    download_url = 'https://api.etherscan.io/api?module=contract&action=getabi&address=';
+                  }
+                }
+                if (download_url) {
+                  let abis = await axios.get(download_url+this.contract_address+'&format=raw');
+                  this.contract_abi = JSON.stringify(toObject(abis.data));
+                }
+              }
+              catch (e) { console.log(e); }
+            })();
+          },
+          processImportPresets: function () {
+            try {
+              let _presets = JSON.parse(this.json_presets);
+              let _pfile_keys = Object.keys(_presets);
+              if (_pfile_keys.indexOf('addr0x0_presets') == -1) {
+                alert('Invalid import file.');
+                return;
+              }
+              _pfile_keys.forEach(_key => {
+                localStorage.removeItem(_key);
+                localStorage.setItem(_key, _presets[_key]);
+              });
+              alert('Import presets successful. ' + _pfile_keys.length + ' presets imported.');
+              this.display_presets();
+            } catch (e) {console.log(e)}
+          },
+          importAllPresets: function () {
+            this.show_list_preset = false;
+            this.show_import_preset = true;
+          },
+          exportAllPresets: function () {
+            let content = JSON.stringify(toObject(localStorage));
+            let fileName = 'scc-presets-' + new Date().toLocaleDateString().replaceAll('/', '-') + '.json';
+            let a = document.createElement("a");
+            let file = new Blob([content], {type: 'application/json'});
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.click();
+          },
+          savePreset: function() {
+            let preset_name = prompt('Enter preset name', this.current_preset);
+            if (preset_name != '') {
+              let current_presets = JSON.parse(localStorage.getItem(key_name));
+              if (!current_presets || current_presets.length <= 0) current_presets = [];
+              let duplicated_preset = current_presets.filter(preset => preset.name == preset_name);
+              if (duplicated_preset.length > 0) {
+                let overwrite = confirm('Preset name already existed, overwrite?');
+                if (!overwrite) return;
+                // remove old preset
+                current_presets.map((preset, idx) => {
+                  if (preset.name == preset_name) current_presets.splice(idx, 1);
+                });
+              }
+              let new_preset = {
+                "name": preset_name,
+                "items": {
+                  rpc: this.rpc,
+                  private_key: this.private_key,
+                  contract_address: this.contract_address,
+                  contract_abi: this.contract_abi,
+                  contract_method: this.contract_method,
+                  gas: this.gas,
+                  send_value: this.send_value,
+                  token_decimal: this.token_decimal,
+                  selected_method_params: this.selected_method_params,
+                  note: this.note,
+                  raw_data: this.raw_data
+                },
+              };
+              // Add preset
+              current_presets.push(new_preset);
+              try {
+                localStorage.setItem(key_name, JSON.stringify(toObject(current_presets)));
+                this.current_presets = current_presets;
+                this.current_preset = preset_name;
+              }
+              catch (e) { alert('Error: ' + e.message); console.log(e) }
+            }
+          },
+          load_preset: function () {
+            let next_preset = this.current_presets.filter(preset => preset.name == this.current_preset)[0];
+            console.log('next_preset', next_preset);
+            if (typeof next_preset == 'undefined') return;
+            this.rpc = next_preset.items.rpc;
+            this.private_key = next_preset.items.private_key;
+            this.contract_address = next_preset.items.contract_address;
+            this.contract_abi = next_preset.items.contract_abi;
+            this.gas = next_preset.items.gas;
+            this.send_value = next_preset.items.send_value;
+            this.token_decimal = next_preset.items.token_decimal;
+            this.note = next_preset.items?.note;
+
+            try {
+              this.contract_method = next_preset.items.contract_method;
+              setTimeout(() => {
+                this.selected_method_params = next_preset.items.selected_method_params;
+              }, 500);
+            }
+            catch (e) {console.log(e);}
+          },
+          remove_preset: function (idx) {
+            if (confirm('Are you sure want to delete this preset?')) {
+              this.current_presets.splice(idx, 1);
+            }
+          },
+          edit_preset_name: function (idx) {
+            this.preset_editing = idx; this.inline_preset_value = this.current_presets[idx].name;
+          },
+          update_preset: function (idx) {
+            if (this.inline_preset_value != '') {
+              let current_presets = JSON.parse(localStorage.getItem(key_name));
+              let duplicated_preset = current_presets.filter(preset => preset.name == this.inline_preset_value);
+              if (duplicated_preset.length > 0) {
+                alert('Preset name already existed');
+                return;
+              }
+              
+              console.log(this.current_presets[idx]);
+              this.current_presets[idx].name = this.inline_preset_value;
+              localStorage.setItem(key_name, JSON.stringify(toObject(this.current_presets)));
+              this.preset_editing = null;
+              this.current_preset = this.current_presets[idx].name;
+            }
+          },
+          switchVisibility: function () {
+            this.pkey_field_type = this.pkey_field_type === "password" ? "text" : "password";
+          },
+          renderParams: function (_params) {
+            return _params.map(_param => {
+              try {
+                _param = _param.split(" ");
+                return `<span class="p_name">${_param[0]}</span> <span class="p_value">${(typeof _param[1] != 'undefined' && _param[1].trim() != '') ? _param[1] : '_'}</span>`;
+              } catch (e) {return _param; }
+            }).join(', ');
+          }
+        }
+      });
+      // Feather icons
+      feather.replace();
+    </script>
+  </body>
+</html>
