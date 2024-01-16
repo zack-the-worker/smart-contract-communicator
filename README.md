@@ -7,6 +7,7 @@ The Smart Contract Communicator is a powerful tool designed to simplify the inte
 - **Easy Interaction**: Just navigate to [Smart Contract Communicator](https://zack-the-worker.github.io/smart-contract-communicator/), input the chain RPC, the smart contract address, and the ABI, and you're good to go.
 - **Supports All Methods**: This tool allows you to call all methods provided in the smart contract's ABI.
 - **ERC20 Compatible**: Designed specifically for interacting with ERC20 smart contracts.
+- **Privacy-Focused**: All data is saved on your own machine. We do not store any user data.
 
 ## How to Use
 
