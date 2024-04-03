@@ -176,7 +176,7 @@
   </head>
   <body class="bg-light">
     <div class="container-fluid" id="app">
-      <h1 class="text-glow">Smart Contract Communicator v1.5.9</h1>
+      <h1 class="text-glow">Smart Contract Communicator v1.6.0</h1>
       <hr>
     <form class="form-inline">
       <div>
@@ -265,7 +265,7 @@
 
           <label for="contract_method">Select method</label>
           <select :class="[ contract_method_action == 'call' ? 'form-control opt-view' : 'form-control opt-write']" id="contract_method" v-model="contract_method">
-            <option v-for="method in function_list" v-bind:value="method.name" :data-method-type="method.type">{{ method.name }}({{ method.params.join(', ')}}) {{ (readable_types.indexOf(method.type) > -1 ? 'READ' : 'WRITE') }}</option>
+            <option v-for="method in function_list" v-bind:value="method.name" :data-method-type="method.type">{{ method.name }}({{ method.params.join(', ')}}) {{ (readable_types.indexOf(method.type) > -1 ? 'READ' : 'WRITE') }} ({{method.methodId}})</option>
           </select>
           <div id="method-param-wrapper" class="jumbotron p-3" v-show="Object.keys(selected_method_params).length >  0">
             <div v-for="(value, p_name, index) in selected_method_params">
@@ -484,8 +484,6 @@
         },
         mounted: function() {
           this.web3 = new Web3(this.rpc);
-          console.log(this.web3);
-          // console.log(this.web3.utils.keccak256('_contribute(1)').substr(0, 10));
           this.display_presets();
         },
         computed: {
@@ -513,7 +511,9 @@
             (async () => {
               if(this.sender_address != '' && this.sender_address != 'N/A') {
                 try {
-                  this.my_balance = `(Balance: ${parseFloat(await this.web3.eth.getBalance(this.sender_address)/10**18).toFixed(4)})`;
+                  let _mbalance = await this.web3.eth.getBalance(this.sender_address);
+                  _mbalance = parseFloat(this.web3.utils.fromWei(_mbalance, 'ether')).toFixed(4);
+                  this.my_balance = `(Balance: ${_mbalance})`;
                 }
                 catch (e) {console.log(e)}
               }
@@ -528,7 +528,9 @@
               this.my_balance = '';
               if(this.sender_address != '' && this.sender_address != 'N/A') {
                 try {
-                  this.my_balance = `(Balance: ${parseFloat(await this.web3.eth.getBalance(this.sender_address)/10**18).toFixed(4)})`;
+                  let _mbalance = await this.web3.eth.getBalance(this.sender_address);
+                  _mbalance = parseFloat(this.web3.utils.fromWei(_mbalance, 'ether')).toFixed(4);
+                  this.my_balance = `(Balance: ${_mbalance})`;
                 }
                 catch (e) {console.log(e)}
               }
@@ -541,6 +543,7 @@
           },
           private_key: function (new_pkey, old_pkey) {
             let senderAddress = '';
+            // if (!new_pkey.startsWith('0x')) new_pkey = '0x' + new_pkey;
             try {
               senderAddress = this.web3.eth.accounts.privateKeyToAccount(new_pkey).address;
             } catch (e) { console.log(e); senderAddress = ''; };
@@ -548,7 +551,9 @@
               this.my_balance = '';
               if(this.sender_address != '' && this.sender_address != 'N/A') {
                 try {
-                  this.my_balance = `(Balance: ${parseFloat(await this.web3.eth.getBalance(this.sender_address)/10**18).toFixed(4)})`;
+                  let _mbalance = await this.web3.eth.getBalance(this.sender_address);
+                  _mbalance = parseFloat(this.web3.utils.fromWei(_mbalance, 'ether')).toFixed(4);
+                  this.my_balance = `(Balance: ${_mbalance})`;
                 }
                 catch (e) {console.log(e)}
               }
@@ -576,10 +581,10 @@
                     this.method_params[e.name][input.name] = null;
                   });
                   if (typeof e.stateMutability != 'undefined' && e.stateMutability == 'view') {
-                    read_funcs.push({"name": e.name, "type": 'view', "params": f_params, "outputs": e.outputs});
+                    read_funcs.push({"name": e.name, "type": 'view', "params": f_params, "outputs": e.outputs, 'methodId': this.web3.utils.keccak256(e.name+'('+f_params.join(',')+')').substr(0, 10)});
                   }
                   else {
-                    write_funcs.push({"name": e.name, "type": e.stateMutability??'view', "params": f_params, "outputs": e.outputs});
+                    write_funcs.push({"name": e.name, "type": e.stateMutability??'view', "params": f_params, "outputs": e.outputs, 'methodId': this.web3.utils.keccak256(e.name+'('+f_params.join(',')+')').substr(0, 10)});
                   }
                   tmp_func_names.push(e.name);
                   // Check if ABI contains decimals() method
@@ -895,6 +900,7 @@
                     tx_result += JSON.stringify(toObject(receipt), null, "\t");
                     this.bscscan_tx = this.scan_uri + receipt.transactionHash;
                     this.tx_result_success = true;
+                    break;
                   }
                   else {
                     this.tx_result_success = false;
